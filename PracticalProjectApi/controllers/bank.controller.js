@@ -1,27 +1,30 @@
 const db = require("../models");
-const BankModel = db.Bank;
+const BankModel = db.banks;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Bank
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.bankName) {
+  if (!req.body.data) {
     res.status(400).send({
-      message: "Content can not be empty!",
+      message: "Content cannot be empty!",
     });
     return;
   }
 
   // Create a Bank
-  const bank = {
-    bankName: req.body.bankName,
-    description: req.body.description,
-    age: req.body.age,
-    url: req.body.url,
-  };
+
+  const banks = req.body.data.map((bank) => {
+    return {
+      bankName: bank.bankName,
+      description: bank.description,
+      age: bank.age,
+      url: bank.url,
+    };
+  });
 
   // Save Bank in the database
-  BankModel.create(bank)
+  BankModel.bulkCreate(banks)
     .then((data) => {
       res.send(data);
     })
@@ -49,6 +52,3 @@ exports.findAll = (req, res) => {
       });
     });
 };
-
-// Find a single Bank with an id
-// exports.findOne = (req, res) => {};

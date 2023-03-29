@@ -7,9 +7,9 @@ import {Item, Container} from './components';
 const App = (): JSX.Element => {
   const [banks, setBanks] = useState<IBank[]>([]);
 
-  const getAllBanks = () => {
+  const getAllBanksFromApi = () => {
     apiBanks
-      .getAll()
+      .getAllFromApi()
       .then((response: any) => {
         setBanks(response.data);
       })
@@ -19,7 +19,7 @@ const App = (): JSX.Element => {
   };
 
   useEffect(() => {
-    getAllBanks();
+    getAllBanksFromApi();
   }, []);
 
   return (

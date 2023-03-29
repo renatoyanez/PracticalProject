@@ -1,17 +1,21 @@
-import api from './http-common';
+import {databaseAxios, apiAxios} from './http-common';
 import IBank from '../types/bank.type';
 
 class BankDataService {
-  getAll() {
-    return api.get<Array<IBank>>('/');
+  getAllFromDB() {
+    return databaseAxios.get<Array<IBank>>('/');
+  }
+
+  getAllFromApi() {
+    return apiAxios.get<Array<IBank>>('/');
   }
 
   get(id: string) {
-    return api.get<IBank>(`/${id}`);
+    return databaseAxios.get<IBank>(`/${id}`);
   }
 
-  create(data: IBank) {
-    return api.post<IBank>('/', data);
+  create(data: IBank[]) {
+    return databaseAxios.post<IBank[]>('/', {data});
   }
 }
 

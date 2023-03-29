@@ -1,12 +1,3 @@
-// const Sequelize = require('sequelize');
-// const db = new Sequelize('postgres://localhost:5432/banks',
-//     {
-//         logging: false,
-//     }
-// );
-
-// module.exports = db
-
 const dbConfig = require("../config/db.config");
 
 const Sequelize = require("sequelize");
